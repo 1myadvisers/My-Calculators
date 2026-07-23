@@ -1,0 +1,452 @@
+/* ==========================================================================
+   My Calculator — public styles
+   Scoped under .my-calculator-wrap to avoid theme collisions, and uses
+   explicit color/background on every interactive element so it never
+   inherits invisible (white-on-white / black-on-black) theme button styles.
+   ========================================================================== */
+
+.my-calculator-wrap {
+	--mc-color: var(--my-calculator-color, #0F6E4F);
+	--mc-color-soft: color-mix(in srgb, var(--mc-color) 12%, transparent);
+	--mc-color-softer: color-mix(in srgb, var(--mc-color) 6%, transparent);
+	--mc-text: #16211c;
+	--mc-text-muted: #5c6b64;
+	--mc-border: #e3e8e5;
+	--mc-bg: #ffffff;
+	--mc-bg-soft: #f5f8f6;
+	--mc-radius: 16px;
+	--mc-radius-sm: 10px;
+	--mc-shadow: 0 4px 24px rgba(15, 40, 30, 0.07);
+	--mc-shadow-sm: 0 1px 4px rgba(15, 40, 30, 0.05);
+	--mc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+	box-sizing: border-box;
+	font-family: var(--mc-font);
+	color: var(--mc-text);
+	max-width: 880px;
+	margin: 1.75em auto;
+}
+
+.my-calculator-wrap *,
+.my-calculator-wrap *::before,
+.my-calculator-wrap *::after {
+	box-sizing: border-box;
+}
+
+/* ---------------------------- Calculator card ---------------------------- */
+
+.my-calculator-box {
+	width: 100%;
+	padding: clamp(1.25em, 3vw, 2em);
+	border: 1px solid var(--mc-border);
+	border-radius: var(--mc-radius);
+	background: var(--mc-bg);
+	box-shadow: var(--mc-shadow);
+}
+
+.my-calculator-title {
+	margin: 0 0 0.35em;
+	font-size: clamp(1.15em, 2.4vw, 1.45em);
+	font-weight: 700;
+	color: var(--mc-text);
+	line-height: 1.3;
+	letter-spacing: -0.01em;
+}
+
+.my-calculator-note {
+	margin: 0 0 1.4em;
+	font-size: 0.9em;
+	color: var(--mc-text-muted);
+	line-height: 1.5;
+	padding: 0.7em 0.9em;
+	background: var(--mc-color-softer);
+	border-radius: var(--mc-radius-sm);
+	border-left: 3px solid var(--mc-color);
+}
+
+/* ------------------------------ Input form ------------------------------- */
+
+.my-calculator-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+	gap: 1.1em;
+	margin-bottom: 1.5em;
+}
+
+.my-calculator-field {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.my-calculator-field label {
+	font-size: 0.83em;
+	font-weight: 600;
+	margin-bottom: 0.45em;
+	color: var(--mc-text-muted);
+	letter-spacing: 0.01em;
+}
+
+.my-calculator-field input[type="number"] {
+	width: 100%;
+	padding: 0.75em 0.85em;
+	border: 1.5px solid var(--mc-border);
+	border-radius: var(--mc-radius-sm);
+	font-size: 1.02em;
+	font-weight: 600;
+	color: var(--mc-text);
+	background: var(--mc-bg-soft);
+	line-height: 1.4;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.my-calculator-field input[type="number"]:focus {
+	outline: none;
+	border-color: var(--mc-color);
+	background: #ffffff;
+	box-shadow: 0 0 0 3px var(--mc-color-soft);
+}
+
+.my-calculator-field-error {
+	border-color: #d63638 !important;
+	box-shadow: 0 0 0 3px rgba(214, 54, 56, 0.15) !important;
+}
+
+.my-calculator-submit {
+	grid-column: 1 / -1;
+	justify-self: start;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	padding: 0.85em 2em;
+	border: none;
+	border-radius: var(--mc-radius-sm);
+	background: var(--mc-color) !important;
+	color: #ffffff !important;
+	font-weight: 700;
+	font-size: 1em;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+	box-shadow: 0 4px 14px var(--mc-color-soft);
+	transition: transform 0.12s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.my-calculator-submit:hover,
+.my-calculator-submit:focus-visible {
+	opacity: 0.94;
+	transform: translateY(-1px);
+	box-shadow: 0 6px 18px var(--mc-color-soft);
+}
+
+.my-calculator-submit:active {
+	transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+	.my-calculator-submit {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+/* -------------------------------- Results -------------------------------- */
+
+.my-calculator-results {
+	display: none;
+	border-top: 1px solid var(--mc-border);
+	padding-top: 1.4em;
+	margin-top: 0.25em;
+}
+
+.my-calculator-results.is-visible {
+	display: block;
+	animation: mc-fade-in 0.3s ease;
+}
+
+@keyframes mc-fade-in {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.my-calculator-summary {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+	gap: 0.85em;
+	margin-bottom: 1.6em;
+}
+
+.my-calculator-summary-item {
+	padding: 1em 1.1em;
+	background: var(--mc-bg-soft);
+	border-radius: var(--mc-radius-sm);
+	border: 1px solid var(--mc-border);
+}
+
+.my-calculator-summary-item.is-primary {
+	grid-column: 1 / -1;
+	background: linear-gradient(135deg, var(--mc-color-soft), var(--mc-color-softer));
+	border: 1.5px solid var(--mc-color-soft);
+}
+
+.my-calculator-summary-item .label {
+	display: block;
+	font-size: 0.78em;
+	color: var(--mc-text-muted);
+	margin-bottom: 0.35em;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	font-weight: 600;
+}
+
+.my-calculator-summary-item .value {
+	display: block;
+	font-size: clamp(1.05em, 2.6vw, 1.3em);
+	font-weight: 700;
+	color: var(--mc-text);
+	word-break: break-word;
+}
+
+.my-calculator-summary-item.is-primary .value {
+	font-size: clamp(1.4em, 3.4vw, 1.9em);
+	color: var(--mc-color);
+}
+
+/* --------------------------------- Chart ---------------------------------- */
+
+.my-calculator-chart-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 1.75em;
+	margin-bottom: 1.6em;
+	padding: 1.25em;
+	background: var(--mc-bg-soft);
+	border-radius: var(--mc-radius);
+	border: 1px solid var(--mc-border);
+}
+
+.my-calculator-chart {
+	width: 200px;
+	max-width: 100%;
+	height: 200px;
+	flex-shrink: 0;
+}
+
+.my-calculator-legend {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	flex: 1 1 200px;
+	min-width: 180px;
+}
+
+.my-calculator-legend li {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	margin-bottom: 0.65em;
+	font-size: 0.95em;
+	font-weight: 500;
+	color: var(--mc-text);
+}
+
+.my-calculator-legend .swatch {
+	width: 13px;
+	height: 13px;
+	border-radius: 4px;
+	display: inline-block;
+	flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+	.my-calculator-chart-wrap {
+		flex-direction: column;
+		text-align: center;
+	}
+	.my-calculator-legend li {
+		justify-content: center;
+	}
+}
+
+/* --------------------------------- Table ----------------------------------- */
+
+.my-calculator-table-wrap {
+	overflow-x: auto;
+	border: 1px solid var(--mc-border);
+	border-radius: var(--mc-radius-sm);
+	-webkit-overflow-scrolling: touch;
+}
+
+.my-calculator-table-wrap table {
+	width: 100%;
+	min-width: 420px;
+	border-collapse: collapse;
+	font-size: 0.88em;
+}
+
+.my-calculator-table-wrap th,
+.my-calculator-table-wrap td {
+	padding: 0.65em 0.8em;
+	border-bottom: 1px solid var(--mc-border);
+	text-align: right;
+	white-space: nowrap;
+	color: var(--mc-text);
+}
+
+.my-calculator-table-wrap thead th {
+	background: var(--mc-bg-soft);
+	font-weight: 700;
+	position: sticky;
+	top: 0;
+}
+
+.my-calculator-table-wrap th:first-child,
+.my-calculator-table-wrap td:first-child {
+	text-align: left;
+}
+
+.my-calculator-table-wrap tbody tr:hover {
+	background: var(--mc-bg-soft);
+}
+
+.my-calculator-error {
+	color: #b32d2e;
+	font-weight: 600;
+	padding: 1em;
+	background: #fdf1f1;
+	border-radius: var(--mc-radius-sm);
+}
+
+/* ------------------------------ Category tabs -------------------------------- */
+
+.my-calculator-cat-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3em;
+	margin-bottom: 1.5em;
+	padding: 0.35em;
+	background: var(--mc-bg-soft);
+	border-radius: 999px;
+	border: 1px solid var(--mc-border);
+}
+
+.my-calculator-cat-btn {
+	flex: 1 1 auto;
+	padding: 0.65em 1.2em;
+	border: none !important;
+	border-radius: 999px;
+	background: transparent !important;
+	color: var(--mc-text-muted) !important;
+	cursor: pointer;
+	font-size: 0.88em;
+	font-weight: 700;
+	white-space: nowrap;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.my-calculator-cat-btn:hover {
+	color: var(--mc-color) !important;
+}
+
+.my-calculator-cat-btn.is-active {
+	background: var(--mc-bg) !important;
+	color: var(--mc-color) !important;
+	box-shadow: var(--mc-shadow-sm);
+}
+
+.my-calculator-cat-panel.is-active {
+	animation: mc-fade-in 0.25s ease;
+}
+
+/* ------------------------------ Calculator picker ---------------------------- */
+
+.my-calculator-picker-label {
+	display: block;
+	font-size: 0.85em;
+	font-weight: 700;
+	color: var(--mc-text-muted);
+	margin-bottom: 0.5em;
+	letter-spacing: 0.01em;
+}
+
+.my-calculator-select {
+	width: 100%;
+	padding: 0.95em 2.75em 0.95em 1.1em;
+	border: 1.5px solid var(--mc-border);
+	border-radius: var(--mc-radius-sm);
+	background-color: var(--mc-bg-soft);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235c6b64' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 1em center;
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 1.05em;
+	font-weight: 700;
+	color: var(--mc-text);
+	cursor: pointer;
+	margin-bottom: 1.5em;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.my-calculator-select:hover {
+	border-color: var(--mc-color);
+}
+
+.my-calculator-select:focus {
+	outline: none;
+	background-color: #ffffff;
+	border-color: var(--mc-color);
+	box-shadow: 0 0 0 3px var(--mc-color-soft);
+}
+
+.my-calculator-empty-state {
+	padding: 2.5em 1.5em;
+	text-align: center;
+	color: var(--mc-text-muted);
+	background: var(--mc-bg-soft);
+	border: 1.5px dashed var(--mc-border);
+	border-radius: var(--mc-radius);
+	font-size: 1em;
+}
+
+/* Belt-and-braces: these two rules make the "only one visible" behavior work
+ * from CSS alone too, even if a page cache serves stale HTML without the
+ * inline display:none the PHP renders directly on each panel. */
+.my-calculator-cat-panel:not(.is-active) {
+	display: none !important;
+}
+
+.my-calculator-single-panel:not(.is-active) {
+	display: none !important;
+}
+
+.my-calculator-single-panel.is-active {
+	animation: mc-fade-in 0.25s ease;
+}
+
+.my-calculator-single-panel .my-calculator-box {
+	box-shadow: none;
+	border: none;
+	padding: 0;
+}
+
+/* Responsive tweaks for very small screens */
+@media (max-width: 380px) {
+	.my-calculator-form {
+		grid-template-columns: 1fr;
+	}
+	.my-calculator-summary {
+		grid-template-columns: 1fr;
+	}
+	.my-calculator-select {
+		font-size: 1em;
+		padding: 0.85em 2.5em 0.85em 1em;
+	}
+	.my-calculator-cat-nav {
+		border-radius: var(--mc-radius-sm);
+	}
+	.my-calculator-cat-btn {
+		flex: 1 1 45%;
+	}
+}

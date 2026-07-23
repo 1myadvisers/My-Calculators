@@ -1,0 +1,53 @@
+/* My Calculator — admin styles */
+
+.my-calculator-admin-wrap .my-calculator-types-table td,
+.my-calculator-admin-wrap .my-calculator-types-table th {
+	vertical-align: middle;
+	padding: 10px 12px;
+}
+
+.my-calculator-admin-wrap code {
+	background: #f0f0f1;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.my-calculator-admin-wrap h2 {
+	margin-top: 0;
+}
+
+.mc-admin-header {
+	margin-bottom: 1.5em;
+}
+
+.mc-admin-header p {
+	max-width: 720px;
+	color: #50575e;
+}
+
+.mc-admin-card {
+	background: #ffffff;
+	border: 1px solid #dcdcde;
+	border-radius: 12px;
+	padding: 1.5em 1.75em;
+	margin-bottom: 1.5em;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.mc-admin-category-heading {
+	margin: 1.75em 0 0.6em;
+	padding-top: 1em;
+	border-top: 1px solid #f0f0f1;
+	font-size: 1.05em;
+	color: #0F6E4F;
+}
+
+.mc-admin-category-heading:first-of-type {
+	margin-top: 0.5em;
+	padding-top: 0;
+	border-top: none;
+}
+
+.my-calculator-admin-wrap .my-calculator-types-table {
+	margin-bottom: 0.5em;
+}
